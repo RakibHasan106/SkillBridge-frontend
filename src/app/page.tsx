@@ -1,11 +1,15 @@
 import Image from "next/image";
 import {Button} from "../components/ui/button";
-import {Navbar1} from "../components/navbar1";
+import { authClient } from './../lib/auth-client';
 
-export default function Home() {
+
+export default async function Home() {
+  const session = await authClient.getSession();
+
+  console.log(session);
+
   return (
     <div>
-      <Navbar1/>
       <Button>Click Me!</Button>
     </div>
   );
