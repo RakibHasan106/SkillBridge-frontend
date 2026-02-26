@@ -3,6 +3,13 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   Card,
   CardContent,
   CardDescription,
@@ -26,7 +33,8 @@ import { authClient } from './../lib/auth-client';
 const formSchema = z.object({
   name: z.string().min(1,"This field is required"),
   password: z.string().min(8,"Minimum length is 8"),
-  email: z.email()
+  email: z.email(),
+  role: z.enum(["STUDENT","TUTOR"])
 });
 
 export function SignupForm({
@@ -39,12 +47,14 @@ export function SignupForm({
     name: "",
     email: "",
     password: "",
+    role: "STUDENT"
   },
   validators: {
     onSubmit: formSchema
   },
   onSubmit: async ({value})=> {
     const toastId = toast.loading("Creating user");
+    // console.log("BACKEND_API: "+process.env.BACKEND_API);
     try {
       const {data, error} = await authClient.signUp.email(value);
       console.log(data);
@@ -54,6 +64,7 @@ export function SignupForm({
       }
 
       toast.success("User created Successfully", {id: toastId});
+      
     } catch (error) {
       toast.error("Something went wrong, please try again later.",{id: toastId});
     }
@@ -139,6 +150,38 @@ export function SignupForm({
                   )
                 }
                 }/>
+                <form.Field name="role">
+                  {(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid
+
+                    return (
+                      <Field>
+                        <FieldLabel>Role</FieldLabel>
+
+                        <Select
+                          value={field.state.value}
+                          onValueChange={(value) =>
+                            field.handleChange(value as "STUDENT" | "TUTOR")
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a role" />
+                          </SelectTrigger>
+
+                          <SelectContent>
+                            <SelectItem value="STUDENT">Student</SelectItem>
+                            <SelectItem value="TUTOR">Tutor</SelectItem>
+                          </SelectContent>
+                        </Select>
+
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    )
+                  }}
+            </form.Field>
             </FieldGroup>
           </form>
         </CardContent>

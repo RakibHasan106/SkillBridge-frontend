@@ -70,8 +70,8 @@ const Navbar1 = ({
   menu = [
     { title: "Home", url: "/" },
     {
-      title: "Blog",
-      url: "#",
+      title: "Dashboard",
+      url: "/dashboard",
     },
   ],
   auth = {

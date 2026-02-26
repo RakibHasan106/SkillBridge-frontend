@@ -46,19 +46,22 @@ export function LoginForm({
     try {
       const {data, error} = await authClient.signIn.email(value);
       console.log(data);
+
       if(error) { 
         toast.error(error.message, {id: toastId});
         return;
       }
-
+      
       toast.success("User Logged in Successfully", {id: toastId});
+      
+      // await redirectionFromLoginandSignup.getSession();
     } catch (error) {
       toast.error("Something went wrong, please try again later.",{id: toastId});
     }
   }
 });
 
-
+  // await redirectionFromLoginandSignup.getSession();
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
