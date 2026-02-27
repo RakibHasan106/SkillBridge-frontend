@@ -8,19 +8,19 @@ export const adminRoutes: Route[] = [
     items: [
       {
         title: "Analytics",
-        url: "/analytics",
+        url: "/dashboard/analytics",
       },
       {
         title: "users",
-        url: "/users",
+        url: "/dashboard/users",
       },
       {
         title: "reviews",
-        url: "/reviews"
+        url: "/dashboard/reviews"
       },
       {
        title: "tutor profiles",
-       url: "/tutor-profiles" 
+       url: "/dashboard/tutor-profiles" 
       }
     ],
   },
