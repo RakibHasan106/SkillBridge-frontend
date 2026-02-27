@@ -39,6 +39,8 @@ import {
 import Link from "next/link";
 import {Route} from "@/types";
 import { adminRoutes } from "@/routes/adminRoutes";
+import { studentRoutes } from './../routes/studentRoutes';
+import { tutorRoutes } from './../routes/tutorRoutes';
 
 
 const data = {
@@ -66,16 +68,21 @@ export function AppSidebar({user, ...props }: {user: {role:string} & React.Compo
   let routes: Route[] = [];
 
   switch (user.role) {
-    case "admin":
+    case "ADMIN":
       routes = adminRoutes;
       break;
-    // case "student":
-    //   routes = studentRoutes;
-    //   break;
+    case "STUDENT":
+      routes = studentRoutes;
+      break;
+    case "TUTOR":
+      routes = tutorRoutes;
+      break;
     default:
       routes = [];
       break;
   }
+
+  // data.user.name = user.name;
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -85,7 +92,7 @@ export function AppSidebar({user, ...props }: {user: {role:string} & React.Compo
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              <a href="/dashboard">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">SkillBridge Inc.</span>
               </a>
@@ -114,7 +121,7 @@ export function AppSidebar({user, ...props }: {user: {role:string} & React.Compo
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {/* <NavUser user={user} /> */}
       </SidebarFooter>
     </Sidebar>
   )

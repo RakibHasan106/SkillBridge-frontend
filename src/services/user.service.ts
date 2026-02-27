@@ -20,6 +20,7 @@ export const userService = {
         headers: {
           Cookie: cookieHeader,
         },
+        credentials: "include",
         cache: "no-store",
       });
 

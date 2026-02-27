@@ -10,6 +10,18 @@ export const adminRoutes: Route[] = [
         title: "Analytics",
         url: "/analytics",
       },
+      {
+        title: "users",
+        url: "/users",
+      },
+      {
+        title: "reviews",
+        url: "/reviews"
+      },
+      {
+       title: "tutor profiles",
+       url: "/tutor-profiles" 
+      }
     ],
   },
 ];
